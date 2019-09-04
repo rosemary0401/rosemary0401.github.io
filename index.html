@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Chao Tzu Ying</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Dosis:400,600,800" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-animateNumber/0.0.14/jquery.animateNumber.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+  <style>
+    body{
+      font-family: 'Dosis', sans-serif;
+      position: relative;
+    }
+    
+    /*Add font-size and/or height to make scroll move lots.*/
+    div.col-sm-9 div{
+      font-size: 20px;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+    .row.content {
+      height: 1500px;
+    }
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 100%;
+      width: 250px;
+      position: fixed;
+      padding-top: 20px;
+      text-align:center;
+      font-weight:bold;
+    }
+    
+    .main{
+      margin-left:250px; /*must be the same width as sidenav is*/
+      padding: 0px 10px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height: auto;} 
+    }
+    
+    #my-photo img {
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+    }
+    
+    .carousel-caption {
+      left: 5%;
+      top: 50%;
+      text-align: left;
+      max-width: 430px;
+      right: auto;
+    }
+    
+    .skill {
+      margin: 5px;
+    }
+    
+    .fab:hover, .fas:hover {
+      color: #337ab7;
+    }
+
+    .my-mask {
+      text-align:center;
+      color:white;
+      margin-bottom: 50px;
+      margin-top: 50px;
+      background:url('castle.JPG') no-repeat center;
+      background-attachment: fixed;
+    }
+    
+    .me {
+      /*border-radius:50%;
+      border:8px solid white;*/
+      display: block;
+      width: 150px;
+      height: 150px;
+      margin: 0em auto;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+      -webkit-border-radius: 99em;
+      -moz-border-radius: 99em;
+      border-radius: 99em;
+      border: 4px solid #eee;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+      /*hover effect (middle.my_photo:hover.middle-text)*/
+      opacity: 1;
+      display: block;
+      transition: .5s ease;
+      backface-visibility: hidden;
+    }
+    .middle {
+      transition: .5s ease;
+      opacity: 0;
+      position: absolute;
+      top: 15%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    .my_photo:hover .me {
+      opacity: 0.3;
+    }
+
+    .my_photo:hover .middle {
+      opacity: 1;
+    }
+
+    .middle-text {
+      background-color: opacity;
+      color: white;
+      font-size: 20px;
+      padding: 10px 20px;
+    }
+
+    .my-title {
+      color:#337ab7;
+    }
+
+    .my-content {
+      font-size:20px;
+    }
+
+    .typewrite {
+      font-weight: bold;
+      font-size: 50px;
+      font-family:'Dosis', sans-serif;
+      color: white;
+      text-shadow: 1px 5px 2px #337ab7, 0 0 60px #337ab7, 0 0 45px #337ab7;
+    }
+
+    .before-type {
+      font-size: 50px;
+    }
+
+    .nav {
+      font-size:25px;
+    }
+
+    ul.timeline {
+      list-style-type: none;
+      position: relative;
+    }
+
+    ul.timeline:before {
+      content: ' ';
+      background: #f1f1f1;
+      display: inline-block;
+      position: absolute;
+      left: 28px;
+      width: 5px;
+      height: 100%;
+      z-index: 400;
+    }
+
+    ul.timeline > li {
+      margin: 20px 0;
+      padding-left: 20px;
+    }
+
+    ul.timeline > li:before {
+      content: ' ';
+      background: white;
+      display: inline-block;
+      position: absolute;
+      border-radius: 50%;
+      border: 3px solid #337ab7;
+      left: 20px;
+      width: 20px;
+      height: 20px;
+      z-index: 400;
+    }
+    
+    .timeline-title{
+      font-size:20px;
+      font-weight:bold;
+    }
+    
+    .float-right{
+      color:gray;
+      float:right;
+    }
+    .timeline-content{
+      font-size:18px;
+    }
+  </style>
+</head>
+<body data-spy="scroll" data-target="#myScrollspy" data-offset="0">
+
+<div class="container-fluid">
+  <div class="row content">
+    <nav class="col-sm-3 sidenav" id="myScrollspy">
+      <div id="my-photo" class="my_photo">
+        <img src="../me.jpg" class="img-circle me">
+        <div class="middle">
+          <div class="middle-text">HELLO</div>
+        </div>
+      </div>
+      <h3><b>Chao Tzu-Ying</b></h3>
+      <ul class="nav nav-pills nav-stacked">
+        <li class="active"><a href="#section1">Home</a></li>
+        <li><a href="#section2">About</a></li>
+        <li><a href="#section3">Skills</a></li>
+        <li><a href="#section4">Experience</a></li>
+        <li><a href="#section5">Work</a></li>
+      </ul>
+      <br>
+      <a href="https://www.facebook.com/profile.php?id=100024899648246"><i class="fab fa-facebook-square fa-2x"></i></a>
+      <a href="https://github.com/rosemary0401/"><i class="fab fa-github fa-2x"></i></a>
+      <a href="http://biglegsrabbit.blogspot.com/"><i class="fab fa-blogger fa-2x"></i></a>
+    </nav>
+
+    <div class="col-sm-9 main">
+      <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+          <li data-target="#myCarousel" data-slide-to="1"></li>
+          <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" id="section1">
+          <div class="item active">
+            <img src="slide1.jpg" alt="Los Angeles" style="width:100%;">
+            <div class="carousel-caption">
+              <h1 style="font-size:50px"><b>HELLO!</b></h1>
+              <span class="before-type">I am </span>
+              <span class="typewrite" data-period="2000" data-type='[ "Tzu-Ying", "a Designer", "a Writer", "a Blogger" ]'></span>
+              <span class="wrap"></span>
+            </div>
+          </div>
+
+          <div class="item">
+            <img src="slide2.jpg" alt="Chicago" style="width:100%;">
+            <div class="carousel-caption">
+              <p style="font-size:30px"><b>S</b>pecialized in a variety of charts designed to address important data visualization needs.</p>
+            </div>
+          </div>
+
+          <div class="item">
+            <img src="slide3.jpg" alt="New york" style="width:100%;">
+            <div class="carousel-caption">
+              <h3 style="font-size:30px">Committed and energetic <b>Dreamer</b></h3>
+              <p style="font-size:30px">I aim to make a difference through my creative solution.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br><br><br><br>
+      <div>
+      <h4 id="section2">ABOUT ME</h4>
+      <h1 class="my-title"><b>WHO AM I?</b></h1>
+      <p style="font-size:20px"><b>Hello! I am a Designer & Writer.</b></p>
+      <P class="my-content">Dedicated and energized worker with 6 years comprehensive experience in Chunghwa Post. I'm keen to learn website design and programming language in my free time.<br><br>
+      Especially proficient with different kinds of charts design with interactive visualization. Having extensive knowledge of working with innovative technology tools.<br><br> 
+      I'm also specialized in writing food reviews on my blog while staying in Fukuoka. I aim to make a difference through my creative solutions. <br><br>Stay hungry, stay foolish.</P>
+      </div>
+      <br><br><br><br><br>
+      
+      <div>
+      <h4 id="section3">My SPECIALTY</h4>
+      <h1 class="my-title"><b>MY SKILLS</b></h1><br>    
+      <P class="my-content"><b>PROGRAMMING LANGUAGE & TOOLS</b></P><br>   
+      <i class="fab fa-html5 fa-4x skill"></i>
+      <i class="fab fa-css3-alt fa-4x skill"></i>
+      <i class="fab fa-js-square fa-4x skill"></i>
+      <i class="fab fa-github fa-4x skill"></i>
+      <i class="fab fa-gitlab fa-4x skill"></i>
+      <i class="fas fa-database fa-4x skill"></i>
+      <i class="fab fa-aws fa-4x skill"></i>
+      <br><br>
+      <p class="my-content">
+      
+      <i class="fa fa-check" aria-hidden="true"></i> Provided a full variety of imaging requires from commercial and official data<br>
+      <i class="fa fa-check" aria-hidden="true"></i> Designed as well as provided proposals to broad spectrum customers<br>
+      <i class="fa fa-check" aria-hidden="true"></i> Oversaw all aspects of design projects as a front-end developer<br>
+      
+      </p>
+      <div class="my-mask">
+        <br>
+        <br>
+        <table align="center" width="100%">
+          <thead>
+            <tr>
+              <td><h1 id="views"></h1></td>
+              <td><h1 id="days"></h1></td>
+              <td><h1 id="articles"></h1></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><p><b>PAGE VIEWS</b></p></td>
+              <td><p><b>DAYS IN JAPAN</b></p></td>
+              <td><p><b>ARTICLES</b></p></td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        <br>
+      </div>
+      </div>
+      <br><br><br><br><br>
+<div>      
+      <h4 id="section4">MY EXPERIENCE</h4>
+      <h1 class="my-title"><b>LIFE EXPERIENCE</b></h1>      
+      <P></P>
+
+      <ul class="timeline">
+        <li>
+          <span class="timeline-title">Life in Tokyo, Japan</span>
+          <span class="float-right">July 2018 - Present</span>
+          <p><ul class="timeline-content">
+            <li>Creating useful charts to make data meet visualization needs.</li>
+            <li>Writing food review of Tokyo restaurants.</li>          
+          </ul></p>          
+        </li>
+        <li>
+          <span class="timeline-title">Life in Fukuoka, Japan</span>
+          <span class="float-right">August 2017 - July 2018</span>
+          <p><ul class="timeline-content">
+            <li>I've written nearly hundred articles about food review of Fukuoka restaurants on my blog.</li>
+            <li>Learning programming language and tools to design a website.
+          </ul></p>
+        </li>
+        <li>
+          <span class="timeline-title">Post Office Counter Clerk at Xing-an Post Office,Taipei</span>
+          <span class="float-right">April 2015 - July 2017</span>
+          <p><ul class="timeline-content">
+            <li>Helped customers to determine the best postal service to meet their needs as well as the optimum postal rates for their budget.</li>
+            <li>Answering questions from customers in a calm and patient manner.</li>
+            <li>Helped customers to select the best packaging to use to wrap their items for delivery to different destinations.</li>
+            <li>Distributed mails to postal mailboxes in the post office.</li>
+          </ul></p>
+        </li>
+        <li>
+          <span class="timeline-title">Administration Staff at Taipei Post Office,Taipei</span>
+          <span class="float-right">November 2012 - March 2015</span>
+          <p><ul class="timeline-content">
+            <li>Maintenance and trouble-shooting of network connection devices and ATM of all branch post offices in Taipei.</li>
+            <li>Dealt with questions and inquiries of service system from branch post offices.</li>
+            <li>Provided instructions and solutions of operating system and platform to internal staff.</li>
+          </ul></p>
+        </li>
+        <li>
+          <span class="timeline-title">Post Office Counter Clerk at Guting Post Office,Taipei</span>
+          <span class="float-right">June 2011 - October 2012</span>
+          <p><ul class="timeline-content">
+            <li>Handled all types of counter business for customers dealing with postal service and banking service.</li>
+            <li>Dealt with questions and inquiries from customers and helped them to find the services that they needed for different situations.</li>
+            <li>Promoted financial services such as savings and insurance to customers.
+          </ul></p>
+        </li>
+        <li>
+          <span class="timeline-title">Bachelor of Education at National Ping Tung University</span>
+          <span class="float-right">February 2009 - January 2010</span>
+          <p></p>
+        </li>
+        <li>
+          <span class="timeline-title">English Language Academy at University of Auckland, New Zealand</span>
+          <span class="float-right">August 2008 - January 2009</span>
+          <p></p>
+        </li>
+        <li>
+          <span class="timeline-title">Bachelor of Education at National Ping Tung University</span>
+          <span class="float-right">September 2005 - June 2008</span>
+          <p></p>
+        </li>
+      </ul>
+      </div>
+      <br><br><br><br>
+      <div>
+      <h4 id="section5">MY WORK</h4>
+      <h1 class="my-title"><b>RECENT WORK</b></h1> 
+      <div class="row">
+        <div class="col-md-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading">Bar chart</div>
+            <div class="panel-body">
+              <canvas id="barChart"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading">Line chart</div>
+            <div class="panel-body">
+              <canvas id="lineChart"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading">Pie chart</div>
+            <div class="panel-body">
+              <canvas id="pieChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>    
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading">Stack chart</div>
+            <div class="panel-body">
+              <canvas id="stackChart"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading">Scatter chart</div>
+            <div class="panel-body">
+              <canvas id="scatterChart"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading">Area line chart</div>
+            <div class="panel-body">
+              <canvas id="areaChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      <br>
+      <br>
+      <br>
+      <br>
+    </div>
+  </div>
+</div>
+<script>
+$(document).ready(function(){
+  $("#myScrollspy ul li a").on('click', function(event) {
+    if (this.hash !== "") {
+      event.preventDefault();
+
+      var hash = this.hash;
+
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 800, function(){
+   
+        window.location.hash = hash;
+      });
+    }
+  });
+
+  $('#articles').animateNumber({ number: 96 }, 12000);
+  $('#days').animateNumber({ number: 446 }, 12000);
+  $('#views').animateNumber({ number: 83982 }, 12000);
+
+  var ctxBar = document.getElementById("barChart");
+  var barChart = new Chart(ctxBar, {
+    type: 'bar',
+    data: {
+      labels: ["USA", "Taiwan", "Japan"],
+      datasets: [{
+        label: 'Sales',
+        data: [7, 29, 13],
+        backgroundColor: [
+          'rgba(17, 162, 184, 0.2)',
+          'rgba(28, 167, 45, 0.2)',
+          'rgba(33, 122, 183, 0.2)'
+        ],
+        borderColor: [
+          'rgba(17, 162, 184, 1)',
+          'rgba(28, 167, 45, 1)',
+          'rgba(33, 122, 183, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }],
+        xAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'Country'
+          }
+        }]
+      }
+    }
+  });
+
+  var ctxLine = document.getElementById("lineChart");
+  var lineChart = new Chart(ctxLine, {
+    type: 'line',
+    data: {
+      labels: ["2010", "2015", "2020"],
+      datasets: [{
+        label: 'Sales',
+        data: [12, 19, 3],
+        backgroundColor: 'rgba(17, 162, 184, 0.2)',
+        borderColor: 'rgba(17, 162, 184, 1)',
+        borderWidth: 1,
+        fill: false
+      }]
+    }
+  });
+
+  var ctxPie = document.getElementById("pieChart");
+  var pieChart = new Chart(ctxPie, {
+    type: 'pie',
+    data: {
+      labels: ["China", "Russia", "USA"],
+      datasets: [{
+        label: 'Sales',
+        data: [10, 6, 13],
+        backgroundColor: [
+          'rgba(17, 162, 184, 0.2)',
+          'rgba(28, 167, 45, 0.2)',
+          'rgba(33, 122, 183, 0.2)'
+        ],
+        borderColor: [
+          'rgba(17, 162, 184, 1)',
+          'rgba(28, 167, 45, 1)',
+          'rgba(33, 122, 183, 1)'
+        ],
+        borderWidth: 1
+      }]
+    }
+  });
+
+  var ctxStack = document.getElementById("stackChart");
+  var stackChart = new Chart(ctxStack, {
+    type: 'bar',
+    data: {
+      labels: ["January", "February", "March"],
+      datasets: [{
+        type: 'bar',
+        label: 'Revenue',
+        backgroundColor: 'rgba(28, 167, 45, 0.2)',
+        borderColor: 'rgba(28, 167, 45, 1)',
+        borderWidth: 1,
+        data: [60, 30, 80],
+      }, {
+        type: 'bar',
+        label: 'Payment',
+        backgroundColor: 'rgba(33, 122, 183, 0.2)',
+        borderColor: 'rgba(33, 122, 183, 1)',
+        borderWidth: 1,
+        data: [-30, -10, -40]
+      }]
+    },
+    options: {
+      scales: {
+        xAxes: [{
+          stacked: true
+        }]
+      }
+    }
+  }); 
+
+  var ctxScatter = document.getElementById("scatterChart");
+  var scatterChart = new Chart(ctxScatter, {
+    type: 'scatter',
+    data: {
+      datasets: [{
+        label: 'strike',
+        backgroundColor: 'rgba(28, 167, 45, 0.2)',
+        borderColor: 'rgba(28, 167, 45, 1)',
+        borderWidth: 1,
+        data: [{
+          x: 1.1,
+          y: 2.5,
+        }, {
+          x: 3.2,
+          y: -1.4,
+        }, {
+          x: 2.4,
+          y: -1.2,
+        }]
+      }, {
+        label: 'ball',
+        backgroundColor: 'rgba(33, 122, 183, 0.2)',
+        borderColor: 'rgba(33, 122, 183, 1)',
+        borderWidth: 1,
+        data: [{
+          x: -1.2,
+          y: -0.5,
+        }, {
+          x: -3.5,
+          y: 3.0,
+        }, {
+          x: 2.0,
+          y: -3.3,
+        }, {
+          x: 0.8,
+          y: 0.3,
+        }]
+      }]
+    }
+  }); 
+
+  var ctxArea = document.getElementById("areaChart");
+  var areaChart = new Chart(ctxArea, {
+    type: 'line',
+    data: {
+      labels: ["2010", "2015", "2020"],
+      datasets: [{
+        label: 'Bitcoin',
+        data: [12, 19, 3],
+        backgroundColor: 'rgba(28, 167, 45, 0.2)',
+        borderColor: 'rgba(28, 167, 45, 1)',
+        borderWidth: 1
+      },{
+        label: 'Litecoin',
+        data: [3, 10, 23],
+        backgroundColor: 'rgba(33, 122, 183, 0.2)',
+        borderColor: 'rgba(33, 122, 183, 1)',
+        borderWidth: 1
+      }]
+    }
+  });
+
+  var TxtType = function(el, toRotate, period) {
+    this.toRotate = toRotate;
+    this.el = el;
+    this.loopNum = 0;
+    this.period = parseInt(period, 10) || 2000;
+    this.txt = '';
+    this.tick();
+    this.isDeleting = false;
+  };
+
+    TxtType.prototype.tick = function() {
+      var i = this.loopNum % this.toRotate.length;
+      var fullTxt = this.toRotate[i];
+
+      if (this.isDeleting) {
+        this.txt = fullTxt.substring(0, this.txt.length - 1);
+      } else {
+        this.txt = fullTxt.substring(0, this.txt.length + 1);
+      }
+
+      this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+
+      var that = this;
+      var delta = 200 - Math.random() * 100;
+
+      if (this.isDeleting) { delta /= 2; }
+
+      if (!this.isDeleting && this.txt === fullTxt) {
+        delta = this.period;
+        this.isDeleting = true;
+      } else if (this.isDeleting && this.txt === '') {
+        this.isDeleting = false;
+        this.loopNum++;
+        delta = 500;
+      }
+
+      setTimeout(function() {
+        that.tick();
+      }, delta);
+    };
+
+    window.onload = function() {
+      var elements = document.getElementsByClassName('typewrite');
+      for (var i=0; i<elements.length; i++) {
+        var toRotate = elements[i].getAttribute('data-type');
+        var period = elements[i].getAttribute('data-period');
+        if (toRotate) {
+          new TxtType(elements[i], JSON.parse(toRotate), period);
+        }
+      }
+      
+      var css = document.createElement("style");
+      css.type = "text/css";
+      css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #ffffff }";
+      document.body.appendChild(css);
+    };
+});
+</script>
+</body>
+</html>
